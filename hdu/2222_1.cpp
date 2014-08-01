@@ -12,14 +12,15 @@ struct node
 	node *fail;
 	node *next[kind];
 	int count;
-	node()
+	void init()
 	{
 		fail = NULL;
 		memset(next, 0, sizeof(next));
 		count = 0;
 	}
-}*q[MAX_SIZE]; //该数组用于构建fail指针时的广搜队列
+}*q[MAX_SIZE], pool[MAX_SIZE], *root; //该数组用于构建fail指针时的广搜队列
 
+int pos; //池子中当前的下标
 
 char keyword[KEYWORD_MAX_LEN];
 char s[INPUT_MAX_LEN];
@@ -32,7 +33,11 @@ void insert(char *s, node *root)
 	while (s[i])
 	{
 		int index = s[i] - 'a';
-		if (p->next[index] == NULL) p->next[index] = new node();
+		if (p->next[index] == NULL) 
+		{
+			p->next[index] = &pool[pos++];
+			p->next[index]->init();
+		}
 		p = p->next[index];
 		i++;
 	}
@@ -106,7 +111,9 @@ int main()
 	{
 		int n;
 		scanf("%d", &n);
-		node *root = new node();
+		root = &pool[0];
+		root->init();
+		pos = 1;
 		for (int i = 0; i < n; i++)
 		{
 			scanf("%s", keyword);
