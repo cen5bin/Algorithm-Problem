@@ -39,7 +39,6 @@ void solve(int n)
 			for (int l = 0; l < n; l++)
 			if (l!=k && (i&(1<<l)) && l!=j && c[l][k] && dp[i][l][k]!=-1)
 			{
-			//	puts("zz");
 				LL tmp = dp[i][l][k] + a[j] + a[j] * a[k] + (judge(l, k, j)?a[l]*a[k]*a[j]:0);
 				if (dp[i|(1<<j)][k][j] < tmp)
 				{
