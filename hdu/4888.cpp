@@ -11,7 +11,7 @@ const int N = 1000;
 
 struct edge {
 	int v, next;
-	int cap;
+	TYPE cap;
 }e[M<<1];
 int head[N], cur[N], pre[N], gap[N], d[N];
 int num, cnt;
@@ -19,7 +19,7 @@ void init() {
 	memset(head, -1, sizeof(head));
 	cnt = 0;
 }
-void add_edge(int u, int v, int cap) {
+void add_edge(int u, int v, TYPE cap) {
 	e[cnt].cap = cap;
 	e[cnt].v = v;
 	e[cnt].next = head[u];
@@ -47,12 +47,12 @@ void bfs(int sink) {
 	}
 }
 
-int sap(int source, int sink) {
+TYPE sap(int source, int sink) {
 	for (int i = 0; i < num; ++i)
 		cur[i] = head[i];
 	bfs(sink);
-	int ret = 0;
-	int flow = inf;
+	TYPE ret = 0;
+	TYPE flow = inf;
 	pre[source] = source;
 	int u = source;
 	while (d[source] < num) {
