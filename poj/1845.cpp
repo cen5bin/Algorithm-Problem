@@ -15,16 +15,43 @@ LL exp_mod(LL a, LL b, LL c)
 	return ret;
 }
 
+void ex_gcd(LL a, LL b, LL &d, LL &x, LL &y)
+{
+     if (b == 0)
+     {
+          x = 1;
+          y = 0;
+          d = a;
+          return;
+     }
+     ex_gcd(b, a % b, d, y, x);
+     y -= a / b * x;
+     return;
+}
+
 LL inverse_element(LL a, LL m)
+{
+	LL d, x, y;
+	ex_gcd(a, m, d, x, y);
+	return (x % m + m) % m;
+}
+
+LL inverse_element1(LL a, LL m)
 {
 	return exp_mod(a, m-2, m);
 }
 
+LL cal(LL a, LL b, LL c)
+{
+	return a % (b * c) / b; 
+}
 int main()
 {
+	//printf("%lld\n", cal(188, 2, 10));
 	LL a, b;
 	while (scanf("%lld%lld", &a, &b) == 2)
 	{
+		//printf("%lld\n", inverse_element(a, b));
 		if (a == 0 || b == 0)
 		{
 			puts("1");
@@ -43,7 +70,7 @@ int main()
 				ans = ans * (b * cnt % MOD + 1) % MOD;
 				continue;
 			}
-			ans = ans * (exp_mod(tt, cnt*b+1, MOD)-1) % MOD * inverse_element(tt-1, MOD) % MOD;
+			ans = ans * cal((exp_mod(tt, cnt*b+1, MOD*(tt-1))-1), tt-1, MOD) % MOD;//  * inverse_element(tt-1, MOD) % MOD;
 		}
 		if (a > 1)
 		{
@@ -51,7 +78,8 @@ int main()
 			if (tt == 1)
 				ans = ans * (b + 1) % MOD;
 			else if (tt)
-				ans = ans * (exp_mod(tt, b+1, MOD)-1) % MOD * inverse_element(tt-1, MOD) % MOD;
+				ans = ans * cal((exp_mod(tt, b+1, MOD*(tt-1))-1), tt-1, MOD) % MOD;//  * inverse_element(tt-1, MOD) % MOD;
+				//ans = ans * (exp_mod(tt, b+1, MOD)-1) % MOD * inverse_element(tt-1, MOD) % MOD;
 		}
 		printf("%lld\n", (ans+MOD) % MOD);
 	}

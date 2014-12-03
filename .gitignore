@@ -3,3 +3,4 @@
 *.dSYM
 .DS_*
 *.swp
+*.cpp~

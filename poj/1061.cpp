@@ -15,15 +15,15 @@ void ex_gcd(LL a, LL b, LL &d, LL &x, LL &y)
      y -= a / b * x;
      return;
 }
-#define ABS(x) (((x) < 0) ? -(x) : (x))
 bool cal(LL a, LL b, LL c, LL &x, LL &y)
 {
 	LL d;
 	ex_gcd(a, b, d, x, y);
 	if (c % d) return 0;
 	LL tmp = b / d;
-	x = (LL)x % tmp * (c / d) % tmp;
-	if (x < 0) x += (-x+ABS(tmp)-1)/ABS(tmp) * ABS(tmp);
+	x *= (c / d);
+	if (tmp < 0) tmp = - tmp;
+	x = (x % tmp + tmp) % tmp;
 	y = (c - a * x) / b;
 	return 1;
 }

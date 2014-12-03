@@ -19,7 +19,7 @@ void ex_gcd(LL a, LL b, LL &d, LL &x, LL &y)
 	y -= a / b * x;
 	return;
 }
-// x = r mod m
+// x 同于 r 模 m
 LL ex_crt(LL *r, LL *m, int n)
 {
 	LL M = m[0], R = r[0], x, y, d;
