@@ -33,7 +33,7 @@ int main()
         for (int i = n; i >= j; --i)
         {
             dp[i][j] = -1;
-            for (int t = ss[i][j-1]; t <= ss[i+1][j]; ++t)
+            for (int t = ss[i][j-1]; t <= ss[i+1][j] && t < i; ++t)
                 if (dp[i][j] == -1 || dp[i][j] > dp[t][j-1] + w[t+1][i])
                 {
                     ss[i][j] = t;
