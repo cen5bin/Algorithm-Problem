@@ -66,7 +66,7 @@ int main()
         {
             int k = min(p[i].k, n - i - 1 - p[i].k) + 1;
             int pos = query(k, 1, n, 1);
-            if (pos == -1 || k == 0) 
+            if (pos == -1 || k <= 0) 
             {
                 yes = 0;
                 break;
